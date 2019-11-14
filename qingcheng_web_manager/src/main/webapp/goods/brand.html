@@ -4,6 +4,33 @@
     <meta charset="UTF-8">
     <title>品牌管理</title>
     <link rel="stylesheet" href="../css/elementui.css">
+    <!--图片上传组件的样式-->
+    <style>
+        .avatar-uploader .el-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .avatar-uploader .el-upload:hover {
+            border-color: #409EFF;
+        }
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 178px;
+            height: 178px;
+            line-height: 178px;
+            text-align: center;
+        }
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+    </style>
+
 </head>
 <body>
 <div id="app">
@@ -16,7 +43,7 @@
             <el-input placeholder="品牌首字母"  v-model="searchMap.letter" clearable></el-input>
         </el-form-item>
             <el-button type="primary" @click="findPageList">查询</el-button>
-            <el-button type="primary" @click="pojo={},formVisible = true">新增</el-button>
+            <el-button type="primary" @click="pojo={},imageUrl='',formVisible = true">新增</el-button>
     </el-form>
     <!--表格-->
     <el-table
@@ -43,7 +70,7 @@
                 width="180">
             <!--模板列-->
             <tempalte slot-scope="scope">
-                <img :src="scope.row.image">
+                <img width="100px" height="50px" :src="scope.row.image">
             </tempalte>
         </el-table-column>
         <el-table-column
@@ -83,7 +110,16 @@
                 <el-input placeholder="品牌首字母"  v-model="pojo.letter" clearable></el-input>
             </el-form-item>
             <el-form-item label="品牌图片">
-                <el-input placeholder="品牌图片"  v-model="pojo.image" clearable></el-input>
+                <!--图片上传组件-->
+                <el-upload
+                        class="avatar-uploader"
+                        action="/upload/native.do"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
             <el-form-item label="品牌排序">
                 <el-input placeholder="品牌排序"  v-model="pojo.seq" clearable></el-input>
@@ -112,7 +148,8 @@
                 total:10, //总数
                 searchMap:{}, //绑定查询对象
                 formVisible:false, //控制弹窗的变量
-                pojo:{} //绑定新增实体对象
+                pojo:{}, //绑定新增实体对象
+                imageUrl:"" //品牌图片url
             }
         },
         created(){
@@ -146,6 +183,7 @@
             },
             /*新增品牌或者修改品牌*/
             save(){
+                this.pojo.image = this.imageUrl; //保存时，把上传的图片路径绑定在实体图片路径
                 axios.post(`/brand/${this.pojo.id==null?'add':'update'}.do`,this.pojo).then(response =>{
                     this.formVisible = false;
                     this.findPageList();
@@ -156,6 +194,7 @@
                 this.formVisible = true; //打开窗口
                 axios.get(`/brand/findById.do?id=${id}`).then(response =>{
                     this.pojo = response.data; //赋值pojo实体对象
+                    this.imageUrl = this.pojo.image;//加载时，把实体图片路径绑定在上传的图片路径,显示图片
                 })
             },
            /*根据id删除品牌*/
@@ -176,6 +215,23 @@
                             }
                             })
                       });
+            },
+            /*品牌图片上传成功后的事件*/
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = file.response;
+            },
+            /*品牌图片上传之前对图片的校验*/
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
             }
         }
     })
