@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * goods的前端访问控制器，方法请求路径类似：http://localhost:9101/brand/findAll.do
+ */
 @RestController
 @RequestMapping("/brand")
 public class BrandController {

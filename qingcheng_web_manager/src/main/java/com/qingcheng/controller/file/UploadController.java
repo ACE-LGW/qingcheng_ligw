@@ -17,7 +17,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
-    /*想要读取path路径，需要接受request对象*/
+    /*想要读取path路径，需要接收request对象*/
     @Autowired
     private HttpServletRequest request;
     /*本地上传*/

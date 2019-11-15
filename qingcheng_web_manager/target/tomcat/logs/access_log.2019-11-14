@@ -242,3 +242,14 @@
 0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:13:35 +0800] "POST /brand/findPageList.do?page=5&size=40 HTTP/1.1" 200 1042 http-bio-9101-exec-6 14
 0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:13:35 +0800] "GET /goods/11 HTTP/1.1" 404 967 http-bio-9101-exec-6 1
 0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:13:42 +0800] "POST /brand/findPageList.do?page=5&size=10 HTTP/1.1" 200 970 http-bio-9101-exec-2 17
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:45:36 +0800] "GET /goods/brand.html HTTP/1.1" 200 9374 http-bio-9101-exec-2 193
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:45:37 +0800] "GET /css/fonts/element-icons.woff HTTP/1.1" 404 1007 http-bio-9101-exec-3 5
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:45:37 +0800] "GET /js/axios.min.map HTTP/1.1" 404 983 http-bio-9101-exec-1 2
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:45:43 +0800] "GET /brand/findPage.do?page=1&size=10 HTTP/1.1" 200 735 http-bio-9101-exec-4 6216
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:50:36 +0800] "GET /goods/brand.html HTTP/1.1" 304 - http-bio-9101-exec-7 4
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:50:36 +0800] "GET /brand/findPage.do?page=1&size=10 HTTP/1.1" 200 735 http-bio-9101-exec-9 32
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:50:36 +0800] "GET /css/fonts/element-icons.woff HTTP/1.1" 404 1007 http-bio-9101-exec-10 1
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:54:07 +0800] "POST /brand/findPageList.do?page=18&size=10 HTTP/1.1" 200 309 http-bio-9101-exec-3 99
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:54:07 +0800] "GET /img/3.jpg HTTP/1.1" 304 - http-bio-9101-exec-3 4
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:54:07 +0800] "GET /img/1.jpg HTTP/1.1" 304 - http-bio-9101-exec-3 3
+0:0:0:0:0:0:0:1 - - [14/Nov/2019:16:54:07 +0800] "GET /img/ww.jpg HTTP/1.1" 304 - http-bio-9101-exec-3 2

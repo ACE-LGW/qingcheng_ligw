@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * ControllerAdvice表示这是控制器的通知类
+ * ControllerAdvice表示这是控制器的通知类,异常处理类
  */
 @ControllerAdvice
 public class BaseExceptionHandler {
