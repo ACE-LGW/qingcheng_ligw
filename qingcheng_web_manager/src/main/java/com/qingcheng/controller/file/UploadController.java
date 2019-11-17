@@ -1,5 +1,6 @@
 package com.qingcheng.controller.file;
 
+import com.aliyun.oss.OSSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * 上传控制器
@@ -41,5 +43,22 @@ public class UploadController {
         }
         /*最后返回目录地址*/
         return "http://localhost:9101/img/"+file.getOriginalFilename();
+    }
+
+    /**
+     * 阿里云OSS上传
+     */
+    @Autowired
+    private OSSClient ossClient;
+    @PostMapping("/oss")
+    public String ossUpload(@RequestParam("file") MultipartFile file,String folder){
+        String bucketName = "qingcheng-ligw";
+        String fileName = folder+"/"+ UUID.randomUUID() + file.getOriginalFilename();
+        try {
+            ossClient.putObject(bucketName,fileName,file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "https://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/"+fileName;
     }
 }

@@ -43,7 +43,7 @@
             <el-input placeholder="品牌首字母"  v-model="searchMap.letter" clearable></el-input>
         </el-form-item>
             <el-button type="primary" @click="findPageList">查询</el-button>
-            <el-button type="primary" @click="pojo={},formVisible = true">新增</el-button>
+            <el-button type="primary" @click="pojo={},imageUrl='',formVisible = true">新增</el-button>
     </el-form>
     <!--表格-->
     <el-table
@@ -70,7 +70,7 @@
                 width="180">
             <!--模板列-->
             <tempalte slot-scope="scope">
-                <img :src="scope.row.image">
+                <img width="100px" height="50px" :src="scope.row.image">
             </tempalte>
         </el-table-column>
         <el-table-column
@@ -194,7 +194,7 @@
                 this.formVisible = true; //打开窗口
                 axios.get(`/brand/findById.do?id=${id}`).then(response =>{
                     this.pojo = response.data; //赋值pojo实体对象
-                    this.imageUrl = this.pojo.image;//加载时，把实体图片路径绑定在上传的图片路径
+                    this.imageUrl = this.pojo.image;//加载时，把实体图片路径绑定在上传的图片路径,显示图片
                 })
             },
            /*根据id删除品牌*/
@@ -233,7 +233,6 @@
                 }
                 return isJPG && isLt2M;
             }
-        }
         }
     })
 </script>
